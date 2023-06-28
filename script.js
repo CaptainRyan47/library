@@ -1,4 +1,5 @@
 let myLibrary = [];
+document.querySelector('#add').addEventListener('click', () => addBookToLibrary())
 
 function Book(title, author, pages, read) {
   this.title = title
@@ -7,11 +8,13 @@ function Book(title, author, pages, read) {
   this.read = read
 }
 
-const book0 = new Book('Dune', 'Frank Herbert', 858, true);
-console.log(book0);
-
 function addBookToLibrary() {
-  myLibrary[0] = book0
- }
+  const form = document.querySelector('form');
+  myLibrary.push(
+    new Book(form.querySelector('input[name="title"]').value,
+      form.querySelector('input[name="author"]').value,
+      form.querySelector('input[name="pages"]').value,
+      form.querySelector('input[name="read"]').checked));
+}
 
 function displayBooksOnPage() { }
