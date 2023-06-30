@@ -1,6 +1,11 @@
 let myLibrary = [];
 let bookCounter = 0;
-document.querySelector('#add').addEventListener('click', () => addBookToLibrary())
+let deleteButtons = getDeleteButtonEventListeners();
+
+document.querySelector('#add').addEventListener('click', () => {
+  addBookToLibrary();
+  deleteButtons = getDeleteButtonEventListeners();
+})
 
 function Book(title, author, pages, read, number) {
   this.title = title
@@ -19,6 +24,19 @@ function addBookToLibrary() {
       form.querySelector('input[name="read"]').checked,
       bookCounter++));
   displayBooksOnPage();
+}
+
+function removeBookFromLibrary(id) {
+  let tempArray = [];
+  let i = 0;
+  myLibrary.forEach((book, index) => {
+    if (book.number == id.charAt(1)) return;
+    else tempArray[i++] = myLibrary[index];
+  });
+  myLibrary = tempArray;
+  document.querySelector('#books').querySelectorAll('div').forEach(div => {
+    if (id.charAt(1) === div.id.charAt(4)) div.remove();
+  });
 }
 
 function displayBooksOnPage() {
@@ -50,7 +68,20 @@ function displayBooksOnPage() {
     read.setAttribute('class', 'read')
     read.textContent = book.read;
 
-    bookElement.append(title, author, pages, read);
+    const deleteButton = document.createElement('button')
+    deleteButton.className = 'delete'
+    deleteButton.id = 'd' + book.number;
+    deleteButton.innerText = 'Remove Book'
+
+    bookElement.append(title, author, pages, read, deleteButton);
     libraryDiv.append(bookElement);
   });
-} 
+}
+
+function getDeleteButtonEventListeners() {
+  return document.querySelectorAll('.delete').forEach(button => {
+    button.addEventListener('click', (event) => {
+      removeBookFromLibrary(event.target.id);
+    })
+  });
+}
