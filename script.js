@@ -1,10 +1,12 @@
-let myLibrary = [];
 let bookCounter = 0;
-let deleteButtons = getDeleteButtonEventListeners();
+let myLibrary = [
+  new Book('Dune', 'Frank Herbert', 658, true, bookCounter++),
+  new Book('Leviathan Wakes', 'James S.A. Corey', 592, false, bookCounter++)
+];
+displayBooksOnPage();
 
 document.querySelector('#add').addEventListener('click', () => {
   addBookToLibrary();
-  deleteButtons = getDeleteButtonEventListeners();
 })
 
 function Book(title, author, pages, read, number) {
@@ -13,6 +15,11 @@ function Book(title, author, pages, read, number) {
   this.pages = pages
   this.read = read
   this.number = number
+}
+
+Book.prototype.toggleRead = function () {
+  if (this.read) this.read = false;
+  else this.read = true;
 }
 
 function addBookToLibrary() {
@@ -30,7 +37,7 @@ function removeBookFromLibrary(id) {
   let tempArray = [];
   let i = 0;
   myLibrary.forEach((book, index) => {
-    if (book.number == id.charAt(1)) return;
+    if ('d' + book.number == id) return;
     else tempArray[i++] = myLibrary[index];
   });
   myLibrary = tempArray;
@@ -64,24 +71,25 @@ function displayBooksOnPage() {
     pages.setAttribute('class', 'pages')
     pages.textContent = book.pages;
 
-    const read = document.createElement('p')
+    const read = document.createElement('input')
     read.setAttribute('class', 'read')
-    read.textContent = book.read;
+    read.id = 'r' + book.number;
+    read.setAttribute('type', 'checkbox')
+    book.read ? read.setAttribute('checked', '') :
+      read.removeAttribute('checked');
+    read.addEventListener('change', (event) => {
+      book.toggleRead();
+    })
 
     const deleteButton = document.createElement('button')
     deleteButton.className = 'delete'
     deleteButton.id = 'd' + book.number;
     deleteButton.innerText = 'Remove Book'
+    deleteButton.addEventListener('click', (event) => {
+      removeBookFromLibrary(event.target.id);
+    })
 
     bookElement.append(title, author, pages, read, deleteButton);
     libraryDiv.append(bookElement);
-  });
-}
-
-function getDeleteButtonEventListeners() {
-  return document.querySelectorAll('.delete').forEach(button => {
-    button.addEventListener('click', (event) => {
-      removeBookFromLibrary(event.target.id);
-    })
   });
 }
