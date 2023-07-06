@@ -1,4 +1,115 @@
-#books>div {
-  border: 5px solid black;
+:root {
+  --orange200: #fed7aa71;
+  --orange500: #f97316;
+  --orange600: #ea5a0cb3;
+  --orange950: #431407;
+}
+
+body {
+  margin: 0;
+  background-image: url(./library.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  margin: 0 auto;
+  font-size: 4rem;
+  text-align: center;
+  background-color: var(--orange200);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: 30px auto;
+  background-color: var(--orange600);
+  padding: 1em;
+  border: 2px solid var(--orange500);
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 0px 10px var(--orange950);
+  font-size: 1.25rem;
+}
+
+form>h2 {
+  margin-top: 0px;
+}
+
+form>label {
+  display: flex;
+  justify-content: space-between;
+  padding: .25em;
+}
+
+form input {
+  width: 50%;
+}
+
+form>div {
+  display: flex;
+  margin-bottom: 2em;
+  padding: 5px;
+  gap: 15px;
+}
+
+#read {
+  margin: 0;
+  margin-right: auto;
+}
+
+input[type="radio"] {
+  width: initial;
+}
+
+#add {
+  width: initial;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  padding: .25em 3em;
+}
+
+#library {
+  background-color: var(--orange200);
+  margin: 30px 0px;
+}
+
+#library>h2 {
+  text-align: center;
+}
+
+#books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book {
+  background-color: var(--orange200);
+  border: 5px solid var(--orange600);
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px var(--orange950);
   margin: 10px;
+  padding: .5em;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.4rem;
+  grid-column: span 2;
+}
+
+.author,
+.pages {
+  display: flex;
+  justify-content: end;
+}
+
+.delete {
+  padding: .25em;
 }

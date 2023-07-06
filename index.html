@@ -13,14 +13,19 @@
   <h1>Library</h1>
   <form action="">
     <h2>Add book to Library</h2>
-    <label for="title">Title: <input type="text" name="title"></label>
-    <label for="author">Author: <input type="text" name="author"></label>
-    <label for="pages">Number of Pages: <input type="number" name="pages"></label>
-    <label for="read">Have you read this book?<input type="checkbox" name="read"></label>
-    <input type="button" id="add" value="Add book">
+    <label for="title">Title: <input id="title" type="text" name="title"></label>
+    <label for="author">Author: <input id="author" type="text" name="author"></label>
+    <label for="pages">Number of Pages: <input id="pages" type="number" name="pages"></label>
+    <div>
+      <p id="read">I have read this book:</p><label for="yes"><input id="yes" type="radio" name="read"
+          checked>Yes</label>
+      <label for="no"><input id="no" type="radio" name="read">No</label>
+    </div>
+    <input type="button" id="add" value="Add Book">
   </form>
-  <div id="books">
-    <h2>Your Library:</h2>
+  <div id="library">
+    <h2>Your Library</h2>
+    <div id="books"></div>
   </div>
 </body>
 

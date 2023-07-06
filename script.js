@@ -28,7 +28,7 @@ function addBookToLibrary() {
     new Book(form.querySelector('input[name="title"]').value,
       form.querySelector('input[name="author"]').value,
       form.querySelector('input[name="pages"]').value,
-      form.querySelector('input[name="read"]').checked,
+      form.querySelector('#yes').checked,
       bookCounter++));
   displayBooksOnPage();
 }
@@ -42,7 +42,7 @@ function removeBookFromLibrary(id) {
   });
   myLibrary = tempArray;
   document.querySelector('#books').querySelectorAll('div').forEach(div => {
-    if (id.charAt(1) === div.id.charAt(4)) div.remove();
+    if (id.replace('d', '') === div.id.replace('book', '')) div.remove();
   });
 }
 
@@ -58,14 +58,21 @@ function displayBooksOnPage() {
     if (skip) return;
     const bookElement = document.createElement('div')
     bookElement.setAttribute('id', 'book' + book.number)
+    bookElement.setAttribute('class', 'book')
 
-    const title = document.createElement('p')
+    const title = document.createElement('h3')
     title.setAttribute('class', 'title')
     title.textContent = book.title;
+
+    const authorLabel = document.createElement('p')
+    authorLabel.textContent = 'Author:'
 
     const author = document.createElement('p')
     author.setAttribute('class', 'author')
     author.textContent = book.author;
+
+    const pagesLabel = document.createElement('p')
+    pagesLabel.textContent = 'Pages:'
 
     const pages = document.createElement('p')
     pages.setAttribute('class', 'pages')
@@ -77,9 +84,14 @@ function displayBooksOnPage() {
     read.setAttribute('type', 'checkbox')
     book.read ? read.setAttribute('checked', '') :
       read.removeAttribute('checked');
-    read.addEventListener('change', (event) => {
+    read.addEventListener('change', () => {
       book.toggleRead();
     })
+
+    const readLabel = document.createElement('label')
+    readLabel.setAttribute('for', read.id)
+    readLabel.textContent = 'Finished: '
+    readLabel.append(read)
 
     const deleteButton = document.createElement('button')
     deleteButton.className = 'delete'
@@ -89,7 +101,8 @@ function displayBooksOnPage() {
       removeBookFromLibrary(event.target.id);
     })
 
-    bookElement.append(title, author, pages, read, deleteButton);
+    bookElement.append(
+      title, authorLabel, author, pagesLabel, pages, readLabel, deleteButton);
     libraryDiv.append(bookElement);
   });
 }
