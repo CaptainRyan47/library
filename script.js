@@ -1,3 +1,13 @@
+class Book {
+  constructor(title, author, pages, read, number) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    this.number = number
+  }
+}
+
 let bookCounter = 0;
 let myLibrary = [
   new Book('Dune', 'Frank Herbert', 658, true, bookCounter++),
@@ -9,13 +19,6 @@ document.querySelector('#add').addEventListener('click', () => {
   addBookToLibrary();
 })
 
-function Book(title, author, pages, read, number) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
-  this.number = number
-}
 
 Book.prototype.toggleRead = function () {
   if (this.read) this.read = false;
